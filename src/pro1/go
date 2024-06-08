@@ -2,6 +2,8 @@
 
 fileName=$1
 
-g++ ${fileName}.cc -o ${fileName} -g
+headerFile='utils/utils.h'
+
+g++ ${fileName}.cc -o ${fileName} -g -I ${headerFile} -std=c++11
 
 ./${fileName}
