@@ -2,8 +2,6 @@
 #include "../utils/utils.h"
 using namespace std;
 
-#define ADD(x, y) ((x) + (y))
-
 void test1()
 {
     int x = ADD(10, 20);
@@ -41,8 +39,14 @@ void test2()
     cout << sizeof(A) << endl;
 }
 
+int test3(int x, int y) {
+    int c = x + y;
+    return c;
+}
+
 int main()
 {
-    test2();
+    int c = test3(1, 2);
+    cout << c << endl;
     return 0;
 }
