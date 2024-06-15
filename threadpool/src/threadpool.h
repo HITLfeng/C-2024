@@ -25,6 +25,7 @@ public:
 class ThreadWorker
 {
 public:
+    void start();
 private:
 };
 // 线程池
@@ -41,8 +42,7 @@ public:
     // 设置线程池模式 固定|动态增长
     void setMode(ThreadPoolMode poolMode);
     
-    // 设置初始线程个数
-    void setInitThreadSize(unsigned int size);
+
 
     // 设置线程池任务队列阈值
     void setTaskCntThreshold(unsigned int threshhold);
@@ -51,12 +51,16 @@ public:
     void submitTask(std::shared_ptr<TaskBase> spTask);
 
     // 开启线程池
-    void start();
+    void start(unsigned int size = 4);
+private:
+    // 内部调用接口
+    // 设置初始线程个数
+    void setInitThreadSize(unsigned int size);
 
 private:
     ThreadPoolMode poolMode_;
     std::vector<ThreadWorker *> threads_; // 线程列表
-    unsigned int initThreadSize;          // 初始线程个数
+    unsigned int initThreadSize_;          // 初始线程个数
     // 用户创建 引用计数+1 放入服务端队列 引用计数+1 防止服务端处理任务时task已经被析构
     std::queue<std::shared_ptr<TaskBase>> taskQueue_; // 任务队列
     std::atomic_uint taskCnt_;                        // 任务数量
