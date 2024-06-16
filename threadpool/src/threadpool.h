@@ -5,6 +5,7 @@
 #include <atomic>
 #include <mutex>
 #include <condition_variable>
+#include <functional>
 
 // 线程池模式
 // class enum ThreadPoolMode
@@ -25,8 +26,14 @@ public:
 class ThreadWorker
 {
 public:
+    using threadHandler = std::function<void()>;
+
+    ThreadWorker(threadHandler handler);
+    ~ThreadWorker();
+
     void start();
 private:
+    threadHandler tHandler_;
 };
 // 线程池
 class ThreadPool
@@ -57,9 +64,12 @@ private:
     // 设置初始线程个数
     void setInitThreadSize(unsigned int size);
 
+    // 每个线程的处理函数
+    void threadHandler();
+
 private:
     ThreadPoolMode poolMode_;
-    std::vector<ThreadWorker *> threads_; // 线程列表
+    std::vector<std::unique_ptr<ThreadWorker>> threads_; // 线程列表
     unsigned int initThreadSize_;          // 初始线程个数
     // 用户创建 引用计数+1 放入服务端队列 引用计数+1 防止服务端处理任务时task已经被析构
     std::queue<std::shared_ptr<TaskBase>> taskQueue_; // 任务队列
@@ -70,3 +80,5 @@ private:
     std::condition_variable notFull_;  // 表示任务队列不满
     std::condition_variable notEmpty_; // 表示任务队列不空
 };
+
+

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -x
+fileName=$1
+
+# headerFile='utils/utils.h'
+
+# source /opt/rh/devtoolset-8/enable
+
+g++ ${fileName}.cc threadpool.cc task.cc -o ${fileName} -g -std=c++14 -lpthread
+
+./${fileName}
