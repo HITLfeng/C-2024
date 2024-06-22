@@ -13,7 +13,7 @@ int intRandomGen(int l, int r)
 
 // class TaskBuyHuawei
 // public:
-void TaskBuyHuawei::run()
+AnyData TaskBuyHuawei::run()
 {
     std::cout << "买手机 买遥遥领先还是买iphone ? " << std::endl;
     std::cout << "线程" << std::this_thread::get_id() << "选择是：" << std::endl;
@@ -24,5 +24,14 @@ void TaskBuyHuawei::run()
     else
     {
         std::cout << "买遥遥领先" << std::endl;
+    }
+}
+
+AnyData Monitor::run()
+{
+    while (true)
+    {
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        // std::cout << "当前任务队列任务个数：" << taskCnt_ << std::endl;
     }
 }

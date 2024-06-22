@@ -5,5 +5,11 @@
 class TaskBuyHuawei : public TaskBase
 {
 public:
-    void run();
+    AnyData run();
+};
+
+class Monitor : public TaskBase
+{
+public:
+    AnyData run();
 };

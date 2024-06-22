@@ -13,8 +13,13 @@ int main()
     threadPool.setMode(MODE_FIXED);
     threadPool.start();
     while (true) {
-        std::shared_ptr<TaskBase> spTask(new TaskBuyHuawei());
-        threadPool.submitTask(spTask);
+        // std::shared_ptr<TaskBase> spTask(new TaskBuyHuawei());
+        // threadPool.submitTask(spTask);
+        threadPool.submitTask(std::make_shared<TaskBuyHuawei>());
+        threadPool.submitTask(std::make_shared<TaskBuyHuawei>());
+        threadPool.submitTask(std::make_shared<TaskBuyHuawei>());
+        threadPool.submitTask(std::make_shared<TaskBuyHuawei>());
+        threadPool.submitTask(std::make_shared<TaskBuyHuawei>());
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
 

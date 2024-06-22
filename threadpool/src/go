@@ -7,6 +7,7 @@ fileName=$1
 
 # source /opt/rh/devtoolset-8/enable
 
-g++ ${fileName}.cc threadpool.cc task.cc -o ${fileName} -g -std=c++14 -lpthread
+# g++ ${fileName}.cc threadpool.cc task.cc -o ${fileName} -g -std=c++14 -lpthread
+g++ ${fileName}.cc threadpool.cc task.cc -c ${fileName}.o -g -std=c++14 -lpthread
 
-./${fileName}
+# ./${fileName}

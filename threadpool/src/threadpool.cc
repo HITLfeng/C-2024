@@ -35,7 +35,7 @@ void ThreadPool::setTaskCntThreshold(unsigned int threshhold)
 }
 
 // 线程池提交任务
-void ThreadPool::submitTask(std::shared_ptr<TaskBase> spTask)
+Result ThreadPool::submitTask(std::shared_ptr<TaskBase> spTask)
 {
     // 获取锁
     // lock_guard在构造时或者构造前（std::adopt_lock）就已经获取互斥锁，
@@ -59,6 +59,7 @@ void ThreadPool::submitTask(std::shared_ptr<TaskBase> spTask)
                            { return taskQueue_.size() < taskCntThreshhold_; }))
     {
         std::cerr << "task queue is full and submit failed, wait time is " << SUBMIT_TASK_WAIT_TIME << " s." << std::endl;
+        return Result(spTask, false);
     }
 
     // 空余 放入 没有空余 等待一定时间 超时则任务提交失败 返回
@@ -67,6 +68,8 @@ void ThreadPool::submitTask(std::shared_ptr<TaskBase> spTask)
 
     // 成功放入 通知 任务队列非空
     notEmpty_.notify_all();
+
+    return Result(spTask, true);
 }
 
 // 开启线程池
@@ -119,7 +122,7 @@ void ThreadPool::threadHandler()
         if (task != nullptr)
         {
             std::cout << "deal task tid = " << std::this_thread::get_id() << std::endl;
-            task->run();
+            task->exec();
         }
     }
 }
@@ -138,4 +141,17 @@ void ThreadWorker::start()
     // tHandler_();
     std::thread usrThread(tHandler_);
     usrThread.detach();
+}
+
+// *************************
+// TaskBase:: 方法实现
+// *************************
+
+void TaskBase::exec()
+{
+    if (result_ != nullptr)
+    {
+        AnyData data = run();
+        result_->set(data);
+    }
 }
