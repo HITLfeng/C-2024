@@ -1,0 +1,1 @@
+/usr/bin/cc   -O0 -Wall -g -ggdb    CMakeFiles/server.dir/lib/server.c.o  -o ../server -rdynamic -lpthread 

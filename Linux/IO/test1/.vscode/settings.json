@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "stdlib.h": "c",
+        "inet.h": "c",
+        "socket.h": "c",
+        "socket_common.h": "c",
+        "types.h": "c"
+    }
+    // //改变注释颜色
+    // "editor.tokenColorCustomizations": {
+    //     "comments": "#00ff5e" // 注释
+    // }, //如果后面还加内容，记得块末用逗号隔开
+}

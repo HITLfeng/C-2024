@@ -1,0 +1,2 @@
+/root/C-2024/Linux/IO/test1/build/CMakeFiles/main.dir
+/root/C-2024/Linux/IO/test1/build/CMakeFiles/server.dir

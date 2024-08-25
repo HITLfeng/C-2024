@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/common.h
+stdio.h
+-
+
+../include/socket_common.h
+sys/types.h
+-
+sys/socket.h
+-
+arpa/inet.h
+-
+pthread.h
+-
+string.h
+-
+stdlib.h
+-
+unistd.h
+-
+
+/root/C-2024/Linux/IO/test1/lib/server.c
+common.h
+/root/C-2024/Linux/IO/test1/lib/common.h
+socket_common.h
+/root/C-2024/Linux/IO/test1/lib/socket_common.h
+
